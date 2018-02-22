@@ -11,6 +11,13 @@ footer-links:
   email: "bus1-devel@googlegroups.com"
   github: "c-util"
 
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+plugins:
+  - jekyll-sitemap
+
 exclude:
   - AUTHORS
   - LICENSE
