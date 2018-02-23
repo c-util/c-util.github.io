@@ -49,3 +49,17 @@ common development style and project maintenance.
   </li>
 {% endfor %}
 </ul>
+
+{% capture maintenance %}
+## Maintenance
+
+All c-util projects are released under the terms of the *Apache Software License
+2.0, Copyright © 2015-2018 Red Hat, Inc.* Some are additionally released under
+the terms of the *Lesser General Public License 2.1+*.
+
+ * **License**: *Apache Software License 2.0*
+ * **Maintainers**: [David Herrmann](https://github.com/dvdhrm),
+                    [Tom Gundersen](https://github.com/teg)
+ * **Mailing-List**: *bus1-devel* [@googlegroups](https://groups.google.com/forum/#!forum/bus1-devel)
+{% endcapture %}
+{{ maintenance | markdownify }}
