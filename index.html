@@ -1,65 +1,251 @@
----
-layout: default
----
-{% capture overview %}
-# Overview
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-The C-Util Project is a collection of utility libraries for the C11 language.
+
+    <title>C-Util – Common Utility Libraries for C11</title>
+    <meta name="title" content="C-Util – Common Utility Libraries for C11" />
+    <meta property="og:title" content="C-Util – Common Utility Libraries for C11" />
+
+
+
+    <meta name="description" content="Common Utility Libraries for C11">
+    <meta property="og:description" content="Common Utility Libraries for C11" />
+
+
+    <meta name="author" content="C-Util Project" />
+
+    <link rel="shortcut icon" href="/images/c-util.ico" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/media-icons.css" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/syntax.css" />
+  </head>
+
+
+  <body>
+    <header class="tc pv4">
+      <div>
+        <a href="/">
+
+          <img class="h3 w3"
+               alt="Back to home"
+               src="/images/c-util.svg" />
+
+        </a>
+        <h1 class="f5 f4-ns fw6 black-70">C-Util</h1>
+        <h2 class="f6 black-70 fw2 ttu tracked">Common Utility Libraries for C11</h2>
+      </div>
+
+      <nav class="lh-copy">
+        <a href="/"
+           class="mh2 link blue hover-mid-gray">Home</a>
+
+        <a href="https://github.com/c-util"
+           class="mh2 link blue hover-mid-gray">@GitHub</a>
+
+      </nav>
+    </header>
+
+    <main class="mw7 overflow-hidden
+                 center pv4 ph2
+                 bt b--light-gray
+                 lh-copy markdown">
+<article>
+
+
+<h1 id="overview">Overview</h1>
+
+<p>The C-Util Project is a collection of utility libraries for the C11 language.
 The libraries follow common rules and are designed in a consistent style.
-Prominent properties include:
-
- * **Unbundled**: The different projects implement each only a single
-                  functionality, mostly provided independently of the other
-                  projects. Bundling is avoided if possible, but it is not
-                  discouraged. On the contrary, if provided as shared library
-                  on a target system, downstream bundling is encouraged.
-
- * **Self-Contained**: The libraries aim to be self-contained, with minimal
-                       external, mandatory dependencies. This means, the APIs
-                       are designed to allow for the library user to choose and
-                       provide the required resources, rather than depending
-                       directly on a specific project.
-
- * **C11+**: C11 is mandatory! Furthermore, several non-standard compiler
-             features are used to provide ergonomic APIs and make C less
-             cumbersome to use. This includes automatic variable cleanup, block
-             expressions, automatic type deduction, and more.
-
-The C-Util project is a loose collection of mostly independent utility
-libraries. There is no overall scope which these libraries try to cover. On the
-contrary, the scope to cover is in no way limited. Their only connection is the
-common development style and project maintenance.
-
-## Libraries
-{% endcapture %}
-{{ overview | markdownify }}
+Prominent properties include:</p>
 
 <ul>
-{% assign posts = site.posts | sort: 'title' %}
-{% for post in posts %}
   <li>
-    <p>
-      <a href="{{ site.baseurl }}{{ post.url }}"><strong>{{ post.title }}</strong></a>:
-      <em>{{ post.description }}</em>
-    </p>
-    {{ post.excerpt }}
-      <ul>
-        <li><strong>Repository</strong>: <a href="https://github.com/c-util/{{ post.title }}">@github</a></li>
-      </ul>
+    <p><strong>Unbundled</strong>: The different projects implement each only a single
+               functionality, mostly provided independently of the other
+               projects. Bundling is avoided if possible, but it is not
+               discouraged. On the contrary, if provided as shared library
+               on a target system, downstream bundling is encouraged.</p>
   </li>
-{% endfor %}
+  <li>
+    <p><strong>Self-Contained</strong>: The libraries aim to be self-contained, with minimal
+                    external, mandatory dependencies. This means, the APIs
+                    are designed to allow for the library user to choose and
+                    provide the required resources, rather than depending
+                    directly on a specific project.</p>
+  </li>
+  <li>
+    <p><strong>C11+</strong>: C11 is mandatory! Furthermore, several non-standard compiler
+          features are used to provide ergonomic APIs and make C less
+          cumbersome to use. This includes automatic variable cleanup, block
+          expressions, automatic type deduction, and more.</p>
+  </li>
 </ul>
 
-{% capture maintenance %}
-## Maintenance
+<p>The C-Util project is a loose collection of mostly independent utility
+libraries. There is no overall scope which these libraries try to cover. On the
+contrary, the scope to cover is in no way limited. Their only connection is the
+common development style and project maintenance.</p>
 
-All c-util projects are released under the terms of the *Apache Software License
-2.0, Copyright © 2015-2018 Red Hat, Inc.* Some are additionally released under
-the terms of the *Lesser General Public License 2.1+*.
 
- * **License**: *Apache Software License 2.0*
- * **Maintainers**: [David Herrmann](https://github.com/dvdhrm),
-                    [Tom Gundersen](https://github.com/teg)
- * **Mailing-List**: *bus1-devel* [@googlegroups](https://groups.google.com/forum/#!forum/bus1-devel)
-{% endcapture %}
-{{ maintenance | markdownify }}
+
+<h2 id="projects">Projects</h2>
+<ul>
+
+
+
+  <li>
+    <p>
+      <a href="/c-dvar/"><strong>c-dvar</strong></a>:
+      <em>D-Bus Variant Type-System</em>
+    </p>
+    <p>The <em>c-dvar</em> project implements the D-Bus Variant Type-System. It is a simple
+stream encoder and decoder, according to the D-Bus Specification. It is a
+self-contained implementation centered around the D-Bus Variant Type-System,
+suitable for any project handling D-Bus.</p>
+
+
+      <ul>
+        <li><strong>Repository</strong>: <a href="https://github.com/c-util/c-dvar">@github</a></li>
+      </ul>
+  </li>
+
+  <li>
+    <p>
+      <a href="/c-efi/"><strong>c-efi</strong></a>:
+      <em>UEFI Reference Specification Protocol Constants and Definitions</em>
+    </p>
+    <p>The c-efi project provides the protocol constants and definitions of
+the UEFI Reference Specification as native C11 code. The scope of this
+project is limited to those protocol definitions. The protocols are not
+actually implemented. As such, this project serves as base for any UEFI
+application that needs to interact with UEFI, or implement (parts of)
+the UEFI specification.</p>
+
+
+      <ul>
+        <li><strong>Repository</strong>: <a href="https://github.com/c-util/c-efi">@github</a></li>
+      </ul>
+  </li>
+
+  <li>
+    <p>
+      <a href="/c-ini/"><strong>c-ini</strong></a>:
+      <em>Ini-File Handling</em>
+    </p>
+    <p>The c-ini project implements APIs to deal with ini-files. Different
+formats can be supported, but all share common ini-file properties,
+mainly that they are human-readable, grouped key-value pairs.</p>
+
+
+      <ul>
+        <li><strong>Repository</strong>: <a href="https://github.com/c-util/c-ini">@github</a></li>
+      </ul>
+  </li>
+
+  <li>
+    <p>
+      <a href="/c-list/"><strong>c-list</strong></a>:
+      <em>Circular Intrusive Double Linked List Collection</em>
+    </p>
+    <p>The <em>c-list</em> project implements an <em>intrusive</em> collection based on <em>circular
+double linked lists</em> in <em>ISO-C11</em>.</p>
+
+
+      <ul>
+        <li><strong>Repository</strong>: <a href="https://github.com/c-util/c-list">@github</a></li>
+      </ul>
+  </li>
+
+  <li>
+    <p>
+      <a href="/c-rbtree/"><strong>c-rbtree</strong></a>:
+      <em>Intrusive Red-Black Tree Collection</em>
+    </p>
+    <p>The <em>c-rbtree</em> project implements an <em>intrusive</em> collection based on
+<em>red-black-trees</em> in <em>ISO-C11</em>. Its API guarantees the user full control over
+its data-structures, and rather limits itself to just the tree-specific
+rebalancing and coloring operations.</p>
+
+
+      <ul>
+        <li><strong>Repository</strong>: <a href="https://github.com/c-util/c-rbtree">@github</a></li>
+      </ul>
+  </li>
+
+  <li>
+    <p>
+      <a href="/c-shquote/"><strong>c-shquote</strong></a>:
+      <em>POSIX Shell Compatible Argument Parser</em>
+    </p>
+    <p>The <em>c-shquote</em> project is a standalone implementation of POSIX Shell
+compatible argument parsing.</p>
+
+
+      <ul>
+        <li><strong>Repository</strong>: <a href="https://github.com/c-util/c-shquote">@github</a></li>
+      </ul>
+  </li>
+
+  <li>
+    <p>
+      <a href="/c-siphash/"><strong>c-siphash</strong></a>:
+      <em>Streaming-capable SipHash Implementation</em>
+    </p>
+    <p>The <em>c-siphash</em> project provides streaming-capable APIs to compute data hashes
+according to the SipHash algorithm.</p>
+
+
+      <ul>
+        <li><strong>Repository</strong>: <a href="https://github.com/c-util/c-siphash">@github</a></li>
+      </ul>
+  </li>
+
+  <li>
+    <p>
+      <a href="/c-utf8/"><strong>c-utf8</strong></a>:
+      <em>UTF-8 Handling in Standard ISO-C11</em>
+    </p>
+    <p>The <em>c-utf8</em> project implements utility functions around handling UTF-8 in
+<em>ISO-C11</em>.</p>
+
+
+      <ul>
+        <li><strong>Repository</strong>: <a href="https://github.com/c-util/c-utf8">@github</a></li>
+      </ul>
+  </li>
+
+</ul>
+
+
+
+<h2 id="maintenance">Maintenance</h2>
+
+<p>All c-util projects are released under the terms of the <em>Apache Software License
+2.0, Copyright © 2015-2018 Red Hat, Inc.</em> as well as the terms of the <em>Lesser
+General Public License 2.1+</em>.</p>
+
+<ul>
+  <li><strong>License</strong>: <em>Apache Software License 2.0</em></li>
+  <li><strong>License</strong>: <em>Lesser General Public License 2.1+</em></li>
+  <li><strong>Maintainers</strong>: <a href="https://github.com/dvdhrm">David Herrmann</a>,
+                 <a href="https://github.com/teg">Tom Gundersen</a></li>
+  <li><strong>Mailing-List</strong>: <em>bus1-devel</em> <a href="https://groups.google.com/forum/#!forum/bus1-devel">@googlegroups</a></li>
+</ul>
+
+
+
+</article>
+
+    </main>
+
+    <footer class="tc pv3 bt bb b--light-silver bg-light-gray">
+<a href="mailto:bus1-devel@googlegroups.com"><i class="media-icon email"></i></a>
+<a href="https://github.com/c-util"><i class="media-icon github"></i></a>
+
+    </footer>
+  </body>
+</html>

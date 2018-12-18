@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>c-rbtree</title>
+    <meta name="title" content="c-rbtree" />
+    <meta property="og:title" content="c-rbtree" />
+
+
+
+    <meta name="description" content="The c-rbtree project implements an intrusive collection based on
+red-black-trees in ISO-C11. Its API guarantees the user full control over
+its data-structures, and rather limits itself to just the tree-specific
+rebalancing and coloring operations.
+
+" />
+    <meta property="og:description" content="The c-rbtree project implements an intrusive collection based on
+red-black-trees in ISO-C11. Its API guarantees the user full control over
+its data-structures, and rather limits itself to just the tree-specific
+rebalancing and coloring operations.
+
+" />
+
+
+    <meta name="author" content="C-Util Project" />
+
+    <link rel="shortcut icon" href="/images/c-util.ico" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/media-icons.css" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/syntax.css" />
+  </head>
+
+
+  <body>
+    <header class="tc pv4">
+      <div>
+        <a href="/">
+
+          <img class="h3 w3"
+               alt="Back to home"
+               src="/images/c-util.svg" />
+
+        </a>
+        <h1 class="f5 f4-ns fw6 black-70">C-Util</h1>
+        <h2 class="f6 black-70 fw2 ttu tracked">Common Utility Libraries for C11</h2>
+      </div>
+
+      <nav class="lh-copy">
+        <a href="/"
+           class="mh2 link blue hover-mid-gray">Home</a>
+
+        <a href="https://github.com/c-util"
+           class="mh2 link blue hover-mid-gray">@GitHub</a>
+
+      </nav>
+    </header>
+
+    <main class="mw7 overflow-hidden
+                 center pv4 ph2
+                 bt b--light-gray
+                 lh-copy markdown">
+<article>
+  <h1>c-rbtree</h1>
+
+  <dl class="ml4">
+    <dt class="fl cl mr2 b">Repository:</dt>
+    <dd>
+      <a href="https://github.com/c-util/c-rbtree">@GitHub</a>
+    </dd>
+    <dt class="fl cl mr2 b">Issue-Tracker:</dt>
+    <dd>
+      <a href="https://github.com/c-util/c-rbtree/issues">@GitHub</a></li>
+    </dd>
+
+    <dt class="fl cl mr2 b">Documentation:</dt>
+    <dd>
+      <a href="https://github.com/c-util/c-rbtree/blob/master/src/c-rbtree.h">c-rbtree.h</a></li>
+    </dd>
+
+
+    <dt class="fl cl mr2 b">Licenses:</dt>
+    <dd class="cl">
+      <ul class="ma0">
+
+        <li class="i">Apache Software License 2.0</li>
+
+        <li class="i">Lesser General Public License 2.1+</li>
+
+      </ul>
+    </dd>
+
+  </dl>
+
+<p>The <em>c-rbtree</em> project implements an <em>intrusive</em> collection based on
+<em>red-black-trees</em> in <em>ISO-C11</em>. Its API guarantees the user full control over
+its data-structures, and rather limits itself to just the tree-specific
+rebalancing and coloring operations.</p>
+
+<p>The API exposes two major types, a tree type <strong>CRBTree</strong> and a node type
+<strong>CRBNode</strong>. Both are open coded structures, with 1 and 3 member pointers
+respectively. They can be accessed freely, and they provide the user a simple
+binary tree, that can be traversed by following the member pointers.</p>
+
+<h2 id="example">Example</h2>
+
+<p>A typical use-case for <em>c-rbtree</em> is a lookup map for a custom data-structure.
+This example shows how you could insert, remove, and find your custom objects
+in a lookup map based on <em>c-rbtree</em>:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="p">..</span><span class="n">some</span><span class="o">-</span><span class="n">fields</span><span class="p">..;</span>
+        <span class="kt">int</span> <span class="n">key</span><span class="p">;</span>
+        <span class="n">CRBNode</span> <span class="n">rb</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="p">..</span><span class="n">more</span><span class="o">-</span><span class="n">fields</span><span class="p">..;</span>
+<span class="p">}</span> <span class="n">MyData</span><span class="p">;</span>
+
+<span class="cm">/*
+ * Link @node into @tree. In case there is already a
+ * different element with the same key, skip the
+ * insertion and return false.
+ * You could very well insert duplicates. But for the
+ * purpose of this example, we avoid inserting two
+ * elements with the same key.
+ */</span>
+<span class="n">bool</span> <span class="nf">link</span><span class="p">(</span><span class="n">CRBTree</span> <span class="o">*</span><span class="n">tree</span><span class="p">,</span> <span class="n">MyData</span> <span class="o">*</span><span class="n">node</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">CRBNode</span> <span class="o">*</span><span class="n">parent</span><span class="p">,</span> <span class="o">**</span><span class="n">i</span><span class="p">;</span>
+        <span class="n">MyData</span> <span class="o">*</span><span class="n">entry</span><span class="p">;</span>
+
+        <span class="n">parent</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">tree</span><span class="o">-&gt;</span><span class="n">root</span><span class="p">;</span>
+
+        <span class="k">while</span> <span class="p">(</span><span class="o">*</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">p</span> <span class="o">=</span> <span class="o">*</span><span class="n">i</span><span class="p">;</span>
+                <span class="n">entry</span> <span class="o">=</span> <span class="n">c_rbnode_entry</span><span class="p">(</span><span class="o">*</span><span class="n">i</span><span class="p">,</span> <span class="n">MyData</span><span class="p">,</span> <span class="n">rb</span><span class="p">);</span>
+
+                <span class="k">if</span> <span class="p">(</span><span class="n">node</span><span class="o">-&gt;</span><span class="n">key</span> <span class="o">&lt;</span> <span class="n">entry</span><span class="o">-&gt;</span><span class="n">key</span><span class="p">)</span>
+                        <span class="o">*</span><span class="n">i</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">;</span>
+                <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">node</span><span class="o">-&gt;</span><span class="n">key</span> <span class="o">&gt;</span> <span class="n">entry</span><span class="o">-&gt;</span><span class="n">key</span><span class="p">)</span>
+                        <span class="o">*</span><span class="n">i</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">;</span>
+                <span class="k">else</span>
+                        <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="n">c_rbtree_add</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">node</span><span class="o">-&gt;</span><span class="n">rb</span><span class="p">);</span>
+        <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/*
+ * Unlink @node from the tree it is currently linked
+ * on. If @node is marked as unlinked, this is a no-op.
+ */</span>
+<span class="kt">void</span> <span class="nf">unlink</span><span class="p">(</span><span class="n">MyData</span> <span class="o">*</span><span class="n">node</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">c_rbnode_unlink</span><span class="p">(</span><span class="o">&amp;</span><span class="n">node</span><span class="o">-&gt;</span><span class="n">rb</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="cm">/*
+ * Search through @tree for an element that matches
+ * the key given as @key. If none is found, NULL is
+ * returned.
+ */</span>
+<span class="n">MyData</span> <span class="o">*</span><span class="nf">find</span><span class="p">(</span><span class="n">CRBTree</span> <span class="o">*</span><span class="n">tree</span><span class="p">,</span> <span class="kt">int</span> <span class="n">key</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">CRBNode</span> <span class="o">*</span><span class="n">i</span><span class="p">;</span>
+        <span class="n">MyData</span> <span class="o">*</span><span class="n">entry</span><span class="p">;</span>
+
+        <span class="n">i</span> <span class="o">=</span> <span class="n">tree</span><span class="o">-&gt;</span><span class="n">root</span><span class="p">;</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">entry</span> <span class="o">=</span> <span class="n">c_rbnode_entry</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">MyData</span><span class="p">,</span> <span class="n">rb</span><span class="p">);</span>
+
+                <span class="k">if</span> <span class="p">(</span><span class="n">key</span> <span class="o">&lt;</span> <span class="n">entry</span><span class="o">-&gt;</span><span class="n">key</span><span class="p">)</span>
+                        <span class="n">i</span> <span class="o">=</span> <span class="n">i</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">;</span>
+                <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">key</span> <span class="o">&gt;</span> <span class="n">entry</span><span class="o">-&gt;</span><span class="n">key</span><span class="p">)</span>
+                        <span class="n">i</span> <span class="o">=</span> <span class="n">i</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">;</span>
+                <span class="k">else</span>
+                        <span class="k">return</span> <span class="n">entry</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+</article>
+
+    </main>
+
+    <footer class="tc pv3 bt bb b--light-silver bg-light-gray">
+<a href="mailto:bus1-devel@googlegroups.com"><i class="media-icon email"></i></a>
+<a href="https://github.com/c-util"><i class="media-icon github"></i></a>
+
+    </footer>
+  </body>
+</html>
