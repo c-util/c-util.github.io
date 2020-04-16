@@ -1,1 +1,0 @@
-Sitemap: https://c-util.github.io/sitemap.xml
