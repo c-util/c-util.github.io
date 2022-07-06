@@ -17,7 +17,7 @@ style_pair_key: "fl cl mr2 b"
 {% if page.documentation %}
     <dt class="{{ layout.style_pair_key }}">Documentation:</dt>
     <dd>
-      {{ page.documentation }}
+      <a href="{{ page.documentation }}">@ReadTheDocs</a></li>
     </dd>
 {% elsif page.collection == "projects_c-util" %}
     <dt class="{{ layout.style_pair_key }}">Documentation:</dt>
