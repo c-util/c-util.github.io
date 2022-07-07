@@ -1,6 +1,7 @@
 ---
 title: c-rbtree
 description: Intrusive Red-Black Tree Collection
+documentation: https://c-rbtree.readthedocs.io
 licenses:
   - Apache Software License 2.0
   - Lesser General Public License 2.1+
